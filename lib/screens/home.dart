@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:http/http.dart' as http;
+// import 'dart:convert';
 
 import 'package:exp_auth/blocs/auth_block.dart';
 import 'package:exp_auth/screens/login.dart';
@@ -25,6 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       }
+
+      fatchInformationFromServer(fbUser.uid);
+
+      // print(fbUser.refreshToken);
+      // print(fbUser.refreshToken);
+      // print(fbUser.email);
     });
 
     super.initState();
@@ -36,6 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  Future<void> fatchInformationFromServer(userId) async {
+    final url =
+        'https://expense-6e6c7-default-rtdb.firebaseio.com/transactions.json?orderBy="creatorId"&equalTo="$userId"';
+    try {
+      final response = await http.get(url);
+      print(response.body);
+      // print(json.decode(response.body));
+      // final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      // if (extractedData == null) {
+      //   return;
+      // }
+      // final List<Transaction> loadedTransactions = [];
+      // extractedData.forEach((transId, transData) {
+      //   loadedTransactions.add(Transaction(
+      //     id: transId,
+      //     title: transData['title'],
+      //     amount: transData['amount'],
+      //     date: DateTime.fromMillisecondsSinceEpoch(
+      //       transData['date'],
+      //     ),
+      //   ));
+      // });
+      // userTransactions = loadedTransactions;
+      // notifyListeners();
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
@@ -45,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
             stream: authBloc.currentUser,
             builder: (context, snapshot) {
               if (!snapshot.hasData) return CircularProgressIndicator();
-              print(snapshot.data.photoURL);
+              // print(snapshot.data.email);
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

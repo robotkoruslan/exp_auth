@@ -16,10 +16,11 @@ class AuthBloc {
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
+      print(googleAuth.idToken);
 
       //Firebase SignIn
       final result = await authService.signInWithCredential(credential);
-      print('${result.user.displayName}');
+      print(result.user.email);
     } catch (error) {
       print(error);
     }

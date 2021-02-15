@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:math';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -274,7 +272,7 @@ class _AuthCardState extends State<AuthCard> {
                   width: 220,
                   child: SignInButton(
                     Buttons.Google,
-                    // onPressed: () => authBloc.loginGoogle(),
+                    onPressed: () {},
                   ),
                 ),
               ],

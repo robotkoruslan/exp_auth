@@ -1,39 +1,11 @@
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../services/auth_service.dart';
 
 class Auth with ChangeNotifier {
-//Google
-  final authService = AuthService();
-  final googleSignin = GoogleSignIn(scopes: ['email']);
-
-  Stream<User> get currentUser => authService.currentUser;
-  loginGoogle() async {
-    try {
-      final GoogleSignInAccount googleUser = await googleSignin.signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken,
-        accessToken: googleAuth.accessToken,
-      );
-
-      //Firebase SignIn
-      final result = await authService.signInWithCredential(credential);
-      print('${result.user.displayName}');
-    } catch (error) {
-      print(error);
-    }
-  }
-
-//Mail
-
   String _token;
   DateTime _expiryDate;
   String _userId;
@@ -135,7 +107,6 @@ class Auth with ChangeNotifier {
       _authTimer.cancel();
       _authTimer = null;
     }
-    authService.logout();
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();

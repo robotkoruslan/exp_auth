@@ -6,9 +6,10 @@ import 'package:provider/provider.dart';
 import 'blocs/auth_block.dart';
 import 'providers/auth.dart';
 import 'providers/transactions.dart';
-import 'screens/auth_screen.dart';
-import 'screens/splash_screen.dart';
-import 'screens/transaction_overview_screen.dart';
+// import 'screens/auth_screen.dart';
+import 'screens/login.dart';
+// import 'screens/splash_screen.dart';
+// import 'screens/transaction_overview_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               primarySwatch: Colors.green,
               primaryColor: Colors.green,
-              brightness: Brightness.dark,
+              // brightness: Brightness.dark,
               errorColor: Colors.red,
               accentColor: Colors.green,
               fontFamily: 'Quicksand',
@@ -65,17 +66,17 @@ class MyApp extends StatelessWidget {
                           color: Colors.white),
                     ),
               )),
-          // home: LoginScreen(),
-          home: auth.isAuth
-              ? TransactionsOverviewScreen()
-              : FutureBuilder(
-                  future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
-                              ConnectionState.waiting
-                          ? SplashScreen()
-                          : AuthScreen(),
-                ),
+          home: LoginScreen(),
+          // home: auth.isAuth
+          //     ? TransactionsOverviewScreen()
+          //     : FutureBuilder(
+          //         future: auth.tryAutoLogin(),
+          //         builder: (ctx, authResultSnapshot) =>
+          //             authResultSnapshot.connectionState ==
+          //                     ConnectionState.waiting
+          //                 ? SplashScreen()
+          //                 : AuthScreen(),
+          //       ),
         ),
       ),
     );
